@@ -4,30 +4,59 @@
     <meta charset="UTF-8">
     <title>我的在线音乐库</title>
     <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
-        h1 { color: #333; }
-        .song { margin-bottom: 15px; }
-        .song-title { font-weight: bold; }
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background-color: #f9f9f9; }
+        h1 { color: #333; text-align: center; }
+        .song { background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .song-title { font-weight: bold; margin-bottom: 10px; color: #444; }
+        audio { width: 100%; outline: none; }
     </style>
 </head>
 <body>
+
     <h1>🎵 我的在线音乐库</h1>
-    <p>点击下方歌曲即可播放：</p>
+    <p style="text-align: center; color: #666;">点击下方歌曲即可播放</p>
 
-    <div class="song">
-        <div class="song-title">第一首歌</div>
-        <audio controls>
-            <source src="music/song1.mp3" type="audio/mpeg">
-            您的浏览器不支持音频播放。
-        </audio>
-    </div>
+    <!-- 播放器容器，JavaScript 会自动把内容塞进去 -->
+    <div id="playlist"></div>
 
-    <div class="song">
-        <div class="song-title">第二首歌</div>
-        <audio controls>
-            <source src="music/song2.mp3" type="audio/mpeg">
-            您的浏览器不支持音频播放。
-        </audio>
-    </div>
+    <script>
+        // 1. 在这里填入你 music 文件夹里的真实文件名
+        // 注意：必须加上 .mp3 后缀，空格和中文字符都要和 GitHub 上的一模一样！
+        const songs = [
+            "Good Morning.mp3",
+            "Home_Away.mp3",
+            "Winter_in_the_Air.mp3",
+            "tell_me_your_fable.mp3",
+            "tell_me_your_fave.mp3",
+            "あなたはあくまで私のもの_orgel.mp3",
+            "ゆき_螢塚.mp3",
+            "時計図書館_2.mp3"
+        ];
+
+        // 2. 获取页面上的容器
+        const playlistContainer = document.getElementById('playlist');
+
+        // 3. 循环遍历歌曲列表，生成 HTML 代码
+        songs.forEach(function(songName) {
+            // 去掉后缀名作为显示的标题（也可以保留）
+            let title = songName.replace('.mp3', ''); 
+            
+            // 创建 div
+            let songDiv = document.createElement('div');
+            songDiv.className = 'song';
+            
+            // 填入 HTML
+            songDiv.innerHTML = `
+                <div class="song-title">${title}</div>
+                <audio controls>
+                    <source src="music/${songName}" type="audio/mpeg">
+                    您的浏览器不支持音频播放。
+                </audio>
+            `;
+            
+            // 添加到页面上
+            playlistContainer.appendChild(songDiv);
+        });
+    </script>
 </body>
 </html>
